@@ -1,5 +1,5 @@
 
-# Unsloth
+# Unsloth 微调
 unsloth 是一个专门为提升微调速度和降低显存使用而设计的库。它通过优化的 Triton 内核和算法，
 声称可以实现比原生 Hugging Face 快2倍的训练速度和减少70%的显存占用，同时保持与 Hugging Face 生态的完全兼容。
 如果您追求极致的训练效率， unsloth 是一个强大的加速工具，尤其是在资源有限的情况下,推荐使用unsloth微调模型。
@@ -47,4 +47,20 @@ make -j   # Linux/macOS
 ./server -m my-model-q4_k_m.gguf -c 4096 --host 0.0.0.0 --port 8080
 然后就能用任何 OpenAI 客户端访问
 POST http://localhost:8080/v1/chat/completions
+```
+# vLLM 模型 部署模型
+## 1. 安装 vLLM
+## 2. 验证安装是否成功
+## 3. 启动 OpenAI 兼容 API 服务
+   ```bash
+CUDA_VISIBLE_DEVICES=0,1 \
+python -m vllm.entrypoints.openai.api_server \
+  --model /path/to/your/model \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --tensor-parallel-size 2 \
+  --gpu-memory-utilization 0.8 \
+  --max-model-len 8192 \
+  --trust-remote-code \
+  --served-model-name my_model
 ```
