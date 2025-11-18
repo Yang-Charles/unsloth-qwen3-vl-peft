@@ -50,7 +50,9 @@ POST http://localhost:8080/v1/chat/completions
 ```
 # vLLM 模型 部署模型
 ## 1. 安装 vLLM
+uv add vllm
 ## 2. 验证安装是否成功
+python -c "import vllm; print('vLLM 版本:', vllm.__version__)"
 ## 3. 启动 OpenAI 兼容 API 服务
    ```bash
 CUDA_VISIBLE_DEVICES=0,1 \
